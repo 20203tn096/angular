@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="form">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <title>Prueba Angular</title>
+</head>
+
+<body>
+
+    <div ng-controller="controlador1">
+        <label>Nombre: </label>
+        <input type="text" ng-model="name">
+        <br>
+        <label>Apellido Paterno: </label>
+        <input type="text" ng-model="surname">
+        <br>
+        <label>Apellido Materno: </label>
+        <input type="text" ng-model="lastname">
+        <br>
+        <button ng-click="crearPersona()"> Crear</button>
+    </div>
+
+
+    <script>
+        let miAplicacion = angular.module("form", [])
+        let controlador = miAplicacion.controller("controlador1", ["$scope", (scope) => {
+
+            scope.crearPersona = async () => {
+                
+                console.log(scope.name, scope.surname, scope.lastname);
+                let objeto = {
+                    name: scope.name,
+                    surname: scope.surname,
+                    lastname: scope.lastname,
+                }
+               
+                try {
+                  const response = await fetch("http://localhost:8080/api/persona/", {
+                        method: "POST",
+                        body: JSON.stringify(objeto),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    const data = await response.json()
+                   if(!data.error){
+                    alert("Se ha registrado exitosamente" )
+                   }else{
+                    alert("No ha registrado")
+                   }
+                } catch (e) {
+                    alert("Error de Conexion o servidor", e)
+                }
+
+
+
+
+                //  let $http = require('http')
+                // $http({
+                //     method: 'POST',
+                //     url: 'http://localhost:8080/api/persona/',
+                //     data: JSON.stringify(objeto)
+                // }).then(function successCallback(response) {
+                //    console.log(response.message);
+                // }, function errorCallback(response) {
+                //     console.log(response);
+                // });
+            }
+        }])
+
+    </script>
+</body>
+
+</html>
