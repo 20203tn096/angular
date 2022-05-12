@@ -1,0 +1,25 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : 12 may 2022, 8:24:07
+    Author     : CDS
+*/
+.gradient-custom-2 {
+    background: #fccb90;
+    background: linear-gradient(90deg, rgba(0,46,96,1) 10%, rgba(2,110,118,1) 48%, rgba(4,182,143,1) 82%);
+  }
+  
+  @media (min-width: 768px) {
+    .gradient-form {
+      height: 100vh !important;
+    }
+  }
+  @media (min-width: 769px) {
+    .gradient-custom-2 {
+      border-top-right-radius: 0.3rem;
+      border-bottom-right-radius: 0.3rem;
+    }
+  }
+

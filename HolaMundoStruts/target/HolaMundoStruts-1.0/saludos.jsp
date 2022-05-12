@@ -7,6 +7,7 @@
         <title>Saludos desde Struts 2</title>
     </head>
     <body>
-        <h1><s:property value="saludosAtr"></s:property></h1>
+        <h1>Hola</h1>
+        <h1><s:property value="curp"></s:property></h1>
     </body>
 </html>

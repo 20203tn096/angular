@@ -7,6 +7,9 @@
         <action name="saludar" class="beans.HolaMundoAction">
             <result name="exito">/saludos.jsp</result>
         </action>
+        <action name="getPersona" class="actions.PersonaAction" method="getPersona">
+              <result name="success" >/index.jsp</result>
+       </action>
     </package>
 </struts>
         
