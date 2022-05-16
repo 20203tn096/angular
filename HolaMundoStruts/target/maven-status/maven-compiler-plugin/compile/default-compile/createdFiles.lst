@@ -1,1 +1,3 @@
 beans\HolaMundoAction.class
+actions\PersonaAction.class
+beans\Persona.class

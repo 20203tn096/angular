@@ -5,6 +5,7 @@
 package actions;
 
 import beans.Persona;
+import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import java.util.Random;
@@ -13,17 +14,28 @@ import java.util.Random;
  *
  * @author CDS
  */
-public class PersonaAction extends ActionSupport implements ModelDriven<Persona> {
+public class PersonaAction extends ActionSupport {
 
+    String params;
     private Persona persona = new Persona();
     private String curp;
+    Gson gs = new Gson();
 
-    @Override
-    public Persona getModel() {
-        return persona;
+    public String getParams() {
+        return params;
     }
 
+    public void setParams(String params) {
+        this.params = params;
+    }
+
+    
+
     public String getPersona() {
+        System.out.println("Datos " +  params);
+        persona = gs.fromJson(params, Persona.class);
+        System.out.println("Hola");
+        System.out.println("Persona" +  persona);
         String resultado = sustraerNombre(persona.getNombre(), persona.getApellidoPaterno(), persona.getApellidoMaterno()) + sustraerFecha(persona.getFecha()) + persona.getGenero() +  
                      persona.getEntidad() +  primeraConstante(persona.getNombre()) + primeraConstante(persona.getApellidoPaterno()) + primeraConstante(persona.getApellidoMaterno()) +
                     numeroAleatorio() + numeroAleatorio();
