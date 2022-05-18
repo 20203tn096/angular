@@ -1,0 +1,88 @@
+<div class="modal fade" id="update" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modificar Persona</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col-12">
+              <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Nombre</span>
+                </div>
+                <input type="text" ng-model="persona.name" ng-value="persona.name" class="form-control"
+                  placeholder="Ingresa un nombre" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group-prepend mb-2">
+                <span style="font-size: 15; color: red;">{{errorNombreUp}}</span>
+              </div>
+            </div>
+
+
+            <div class="col-12">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Apellido Paterno</span>
+                </div>
+                <input type="text" ng-model="persona.surname" ng-value="persona.surname" class="form-control"
+                  placeholder="Ingresa un apellido" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group-prepend mb-3">
+                <span style="font-size: 15; color: red;">{{errorApellidoUp1}}</span>
+              </div>
+            </div>
+
+
+            <div class="col-12">
+              <div class="input-group ">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Apellido Materno</span>
+                </div>
+                <input type="text" ng-model="persona.lastname" ng-value="persona.lastname" class="form-control"
+                  placeholder="Ingresa un apellido" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group-prepend mb-3">
+                <span style="font-size: 15; color: red;">{{errorApellidoUp2}}</span>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="input-group ">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Edad</span>
+                </div>
+                <input type="text" ng-model="persona.edad" ng-value="persona.edad" class="form-control"
+                  placeholder="Ingresa una edad" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group-prepend mb-3">
+                <span style="font-size: 15; color: red;">{{errorEdadUp}}</span>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">CURP</span>
+                </div>
+                <input type="text" ng-model="persona.curp" ng-value="persona.curp" class="form-control"
+                  placeholder="Ingresa un CURP" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group-prepend mb-3">
+                <span style="font-size: 15; color: red;">{{errorCurpUp}}</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" ng-click="cancelar()" class="btn btn-secondary">Cancelar</button>
+          <button type="button" ng-click="guardar()" class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>

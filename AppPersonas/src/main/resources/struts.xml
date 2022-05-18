@@ -10,10 +10,24 @@
                 <interceptor-ref name="json"/>
             </interceptor-stack>
         </interceptors>
+        <action name="inicio" >
+              <result>/index.jsp </result>
+       </action>  
         <action name="getPersona" class="actions.PersonaAction" method="findAll">
               <result name="success"  type="json"/>
-       </action>  <action name="update" class="actions.PersonaAction" method="update">
+       </action>  
+       <action name="update" class="actions.PersonaAction" method="update">
               <result name="success"  type="json"/>
+       </action>
+        <action name="insert" class="actions.PersonaAction" method="insert">
+              <result name="success"  type="json"/>
+       </action>
+        <action name="delete" class="actions.PersonaAction" method="delete">
+              <result name="success"  type="json"/>
+       </action>
+       <action name="restablecer" class="actions.PersonaAction" method="restablecer">
+              <result name="success"  type="json"/>
+              <result name="error"  type="json"/>
        </action>
 
     </package>

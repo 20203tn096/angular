@@ -1,0 +1,36 @@
+<table class="table" >
+    <thead style="background-color: #002E60; color: #fff;">
+      <tr>
+        <th>Nombre</th>
+        <th>Edad</th>
+        <th>CURP</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="persona in personas | filter: search">
+        <th>{{persona.name}} {{persona.surname}} {{persona.lastname}}</th>
+        <th>{{persona.edad}}</th>
+        <th>{{persona.curp}}</th>
+        <th ng-if="persona.estado == 1">
+          <span class="badge" style="background-color: green">Activo</span>
+        </th>
+        <th ng-if="persona.estado == 0">
+          <span class="badge" style="background-color: red">Inactivo</span>
+        </th>
+        <th>
+
+          <button type="button" ng-show="persona.estado != 0" class="btn btn-danger mb-2" ng-click="eliminar(persona)" style="width: 40px !important;  height: 40px !important; padding: 2.5px !important;border-radius: 50% !important; text-align: center !important; font-size: 12px !important;line-height: 1.42857 !important;">
+            <i data-feather="trash-2" style="color: #fff;"></i>
+          </button>
+          <button type="button" ng-show="persona.estado != 1" class="btn btn-success mb-2" ng-click="restablecer(persona)" style="width: 40px !important;  height: 40px !important; padding: 2.5px !important;border-radius: 50% !important; text-align: center !important; font-size: 12px !important;line-height: 1.42857 !important;">
+            <i data-feather="check-circle" style="color: #fff;"></i>
+          </button>
+          <button type="button"  ng-show="persona.estado != 0" class="btn btn-primary mb-2" ng-click="modificar(persona)" style="width: 40px !important;  height: 40px !important; padding: 2.5px !important;border-radius: 50% !important; text-align: center !important; font-size: 12px !important;line-height: 1.42857 !important;">
+            <i data-feather="edit" style="color: #fff;"></i>
+          </button>
+        </th>
+      </tr>
+    </tbody>
+  </table>

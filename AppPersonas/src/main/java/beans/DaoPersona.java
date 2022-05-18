@@ -131,6 +131,24 @@ public class DaoPersona {
         return !flag;
     }
 
+     public static boolean restablecer(long id) {
+        boolean flag = false;
+        try {
+            con = ConnectionMySQL.getConnection();
+            cstm = con.prepareCall("CALL restablecer(?)");
+            cstm.setLong("p_id", id);
+            flag = cstm.execute();
+
+        } catch (SQLException e) {
+            System.out.printf("Hubo un error en el metodo de restablecer " + e.getMessage());
+        } finally {
+            ConnectionMySQL.closeConnections(con, cstm);
+        }
+
+        return !flag;
+    }
+     
+     
     public static void main(String[] args) {
         /*List<BeanPersona> personas = new ArrayList<>();
         personas = DaoPersona.findAll();

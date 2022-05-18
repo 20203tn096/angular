@@ -17,6 +17,8 @@ public class PersonaAction extends ActionSupport {
     String datos;
     boolean insert;
     boolean update;
+    boolean delete;
+    boolean restablecer;
     Gson gs  = new Gson();
 
     public String findAll (){
@@ -27,6 +29,28 @@ public class PersonaAction extends ActionSupport {
         persona = gs.fromJson(datos, BeanPersona.class);
         update = DaoPersona.update(persona, persona.getId());
         return SUCCESS;
+    }
+    
+     public String insert (){
+        persona = gs.fromJson(datos, BeanPersona.class);
+        insert = DaoPersona.register(persona);
+        return SUCCESS;
+    }
+     
+      public String delete (){
+       persona = gs.fromJson(datos, BeanPersona.class);
+        delete = DaoPersona.delete(persona.getId());
+        return SUCCESS;
+    }
+     public String restablecer (){
+       persona = gs.fromJson(datos, BeanPersona.class);
+         System.out.println("Persona" + persona.getId());
+         try{
+       restablecer = DaoPersona.restablecer(persona.getId());
+         }catch(Exception e){
+             System.out.println("error" + e.getMessage());
+         }
+       return SUCCESS;
     }
 
     public List<BeanPersona> getPersonas() {
@@ -60,6 +84,22 @@ public class PersonaAction extends ActionSupport {
 
     public void setUpdate(boolean update) {
         this.update = update;
+    }
+
+    public boolean isDelete() {
+        return delete;
+    }
+
+    public void setDelete(boolean delete) {
+        this.delete = delete;
+    }
+
+    public boolean isRestablecer() {
+        return restablecer;
+    }
+
+    public void setRestablecer(boolean restablecer) {
+        this.restablecer = restablecer;
     }
     
 }
