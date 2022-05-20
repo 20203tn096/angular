@@ -10,9 +10,31 @@
                 <interceptor-ref name="json"/>
             </interceptor-stack>
         </interceptors>
+
+        <action name="categorias" >
+            <result>/plantillas/categorias.html</result>
+        </action>
         <action name="findAllProducto" class="mx.cds.utez.inventario.actions.ProductoAction" method="findAll" >
             <result name="success" type="json"/>
         </action>
+
+        <action name="registrarProducto" class="mx.cds.utez.inventario.actions.ProductoAction" method="registrarProducto" >
+            <result name="success" type="json"/>
+        </action>
+
+        <action name="findActivas" class="mx.cds.utez.inventario.actions.CategoriaAction" method="findActivas" >
+            <result name="success" type="json"/>
+        </action>
+
+        <action name="actualizarProducto" class="mx.cds.utez.inventario.actions.ProductoAction" method="actualizarProducto" >
+            <result name="success" type="json"/>
+        </action>
+        <action name="eliminarProducto" class="mx.cds.utez.inventario.actions.ProductoAction" method="eliminarProducto" >
+            <result name="success" type="json"/>
+        </action>
+
+
+
     </package>
 </struts>
         

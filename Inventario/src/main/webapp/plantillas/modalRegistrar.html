@@ -1,0 +1,97 @@
+<div class="modal fade" id="register" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Registrar Producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="input-group mt-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Nombre</span>
+                            </div>
+                            <input type="text" ng-model="producto.nombre" class="form-control"
+                                placeholder="Ingresa un nombre" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group-prepend mb-3">
+                            <span style="font-size: 15; color: red;">{{errorNombre}}</span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-12">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Marca</span>
+                            </div>
+                            <input type="text" ng-model="producto.marca" class="form-control"
+                                placeholder="Ingresa un apellido" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group-prepend mb-3">
+                            <span style="font-size: 15; color: red;">{{errorMarca}}</span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-12">
+                        <div class="input-group ">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Precio</span>
+                            </div>
+                            <input type="number" ng-model="producto.precio" class="form-control"
+                                placeholder="Ingresa un apellido" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group-prepend mb-3">
+                            <span style="font-size: 15; color: red;">{{errorPrecio}}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="input-group ">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Cantidad</span>
+                            </div>
+                            <input type="number" ng-model="producto.cantidad" class="form-control"
+                                placeholder="Ingresa una edad" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group-prepend mb-3">
+                            <span style="font-size: 15; color: red;">{{errorCantidad}}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="input-group ">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Categoria</span>
+                            </div>
+
+                            <select ng-init="consultarActivas()"
+                                ng-options="categoria as categoria.nombre for categoria in categorias track by categoria.id"
+                                ng-model="producto.idCategoria">
+                                <option value="" selected>Seleccionar una opción...</option>
+                            </select>
+
+                        </div>
+                        <div class="input-group-prepend mb-3">
+                            <span style="font-size: 15; color: red;">{{errorCategoria}}</span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
+                <button type="button" ng-click="registrar()" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
