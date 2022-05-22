@@ -83,7 +83,7 @@
                                                             style="width: 40px !important;  height: 40px !important; padding: 2.5px !important;border-radius: 50% !important; text-align: center !important; font-size: 12px !important;line-height: 1.42857 !important;">
                                                             <i data-feather="check-circle" style="color: #fff;"></i>
                                                         </button>
-                                                        <button type="button" ng-show="producto.estado != 0"
+                                                        <button type="button"
                                                             class="btn btn-primary mb-2" ng-click="modificar(producto)"
                                                             style="width: 40px !important;  height: 40px !important; padding: 2.5px !important;border-radius: 50% !important; text-align: center !important; font-size: 12px !important;line-height: 1.42857 !important;">
                                                             <i data-feather="edit" style="color: #fff;"></i>
@@ -480,7 +480,7 @@
                     $scope.eliminar = (producto, proceso) => {
 
                         Swal.fire({
-                            title: '¿Estas seguro de eliminar este registro?',
+                            title: proceso == 1 ? '¿Estas seguro de eliminar este registro?' : '¿Estas seguro de restablecer este registro?',
                             showCancelButton: true,
                             confirmButtonText: 'Confirmar',
                             cancelButtonText: `Cancelar`,
@@ -498,7 +498,7 @@
                                     if (!response.data.mensaje.error) {
                                             Swal.fire({
                                                 icon: "success",
-                                                title: proceso == 1 ? 'Eliminado!' : "Usuario restablecido",
+                                                title: proceso == 1 ? 'Eliminado!' : "Producto restablecido",
                                                 confirmButtonText: 'Ok',
                                                 allowOutsideClick: false
                                             }).then((result) => {
@@ -511,8 +511,16 @@
                                                 if (response.data.mensaje.errores.id) {
                                                     Swal.fire({
                                                             icon: 'error',
-                                                            title: 'El producto no existe',
+                                                            title: response.data.mensaje.errores.id,
                                                             text: 'El producto no existe intentalo de nuevo',
+                                                            allowOutsideClick: false
+                                                        })
+                                                }
+                                                if (response.data.mensaje.errores.foranea) {
+                                                    Swal.fire({
+                                                            icon: 'error',
+                                                            title: response.data.mensaje.errores.foranea,
+                                                            text: 'Categoría inexistente, crea la categoría',
                                                             allowOutsideClick: false
                                                         })
                                                 }

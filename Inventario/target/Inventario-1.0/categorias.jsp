@@ -2,7 +2,7 @@
 
     <%@page contentType="text/html" pageEncoding="UTF-8" %>
         <!DOCTYPE html>
-        <html ng-app="index">
+        <html ng-app="indexCategorias">
 
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,7 +15,7 @@
             <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         </head>
 
-        <body ng-controller="controlador1">
+        <body ng-controller="controlador2">
             <div ng-include="'./plantillas/sidebar.html'"></div>
 
             <div id="main" ng-init="consultar()">
@@ -23,12 +23,12 @@
                 <div class="w3-container">
                     <div class="row justify-content-center mt-3">
                         <div class="col-12 col-md-12 col-lg-12 ">
-                            <div class="card  " style="width: auto; height: auto; box-shadow: 0px 5px 15px 0px black;" >
+                            <div class="card  " style="width: auto; height: auto; box-shadow: 0px 5px 15px 0px black;">
                                 <div class="card-header text-start"
                                     style="background-color: #002E60; font-size: 25; color: #fff;">
                                     <div class="row">
                                         <div class="col-12 col-md-7">
-                                            <h4 style="font-weight: bold;">Productos</h4>
+                                            <h4 style="font-weight: bold;">Categorías</h4>
                                         </div>
                                         <div class="col-10 col-md-4 text-end">
                                             <input type="text" ng-model="search" placeholder="Buscar"
@@ -49,48 +49,46 @@
                                             <thead style="background-color: #002E60; color: #fff;">
                                                 <tr>
                                                     <th>Nombre</th>
-                                                    <th>Marca</th>
-                                                    <th>Fecha</th>
+
                                                     <th>Estado</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
-                                            <tbody ng-if="productos.length > 0">
+                                            <tbody ng-if="categorias.length > 0">
 
-                                                <tr ng-repeat="producto in productos | filter: search as results">
+                                                <tr ng-repeat="categoria in categorias | filter: search as results">
 
-                                                    <th>{{producto.nombre}}</th>
-                                                    <th>{{producto.marca}}</th>
-                                                    <th>{{producto.fecha}}</th>
-                                                    <th ng-if="producto.estado == 1">
+                                                    <th>{{categoria.nombre}}</th>
+                                                    <th ng-if="categoria.estado == 1">
                                                         <span class="badge"
                                                             style="background-color: green">Activo</span>
                                                     </th>
-                                                    <th ng-if="producto.estado == 0">
+                                                    <th ng-if="categoria.estado == 0">
                                                         <span class="badge"
                                                             style="background-color: red">Inactivo</span>
                                                     </th>
                                                     <th>
 
-                                                        <button type="button" ng-show="producto.estado != 0"
-                                                            class="btn btn-danger mb-2" ng-click="eliminar(producto, 1)"
+                                                        <button type="button" ng-show="categoria.estado != 0"
+                                                            class="btn btn-danger mb-2"
+                                                            ng-click="eliminar(categoria, 1)"
                                                             style="width: 40px !important;  height: 40px !important; padding: 2.5px !important;border-radius: 50% !important; text-align: center !important; font-size: 12px !important;line-height: 1.42857 !important;">
                                                             <i data-feather="trash-2" style="color: #fff;"></i>
                                                         </button>
-                                                        <button type="button" ng-show="producto.estado != 1"
+                                                        <button type="button" ng-show="categoria.estado != 1"
                                                             class="btn btn-success mb-2"
-                                                            ng-click="eliminar(producto, 2)"
+                                                            ng-click="eliminar(categoria, 2)"
                                                             style="width: 40px !important;  height: 40px !important; padding: 2.5px !important;border-radius: 50% !important; text-align: center !important; font-size: 12px !important;line-height: 1.42857 !important;">
                                                             <i data-feather="check-circle" style="color: #fff;"></i>
                                                         </button>
-                                                        <button type="button"
-                                                            class="btn btn-primary mb-2" ng-click="modificar(producto)"
+                                                        <button type="button" ng-show="categoria.estado != 0"
+                                                            class="btn btn-primary mb-2" ng-click="modificar(categoria)"
                                                             style="width: 40px !important;  height: 40px !important; padding: 2.5px !important;border-radius: 50% !important; text-align: center !important; font-size: 12px !important;line-height: 1.42857 !important;">
                                                             <i data-feather="edit" style="color: #fff;"></i>
                                                         </button>
-                                                        
-                                                        <button type="button" 
-                                                            class="btn btn-warning mb-2" ng-click="ver(producto)"
+
+                                                        <button type="button" class="btn btn-warning mb-2"
+                                                            ng-click="ver(categoria)"
                                                             style="width: 40px !important;  height: 40px !important; padding: 2.5px !important;border-radius: 50% !important; text-align: center !important; font-size: 12px !important;line-height: 1.42857 !important;">
                                                             <i data-feather="eye" style="color: #fff;"></i>
                                                         </button>
@@ -114,16 +112,126 @@
 
             </div>
 
-            <div ng-include="'./plantillas/modalRegistrar.html'"></div>
-            <div ng-include="'./plantillas/modalActualizar.html'"></div>
-            <div ng-include="'./plantillas/modalVisualizar.html'"></div>
 
 
+            <div class="modal fade" id="register" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Registrar Categoría</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
 
+                                <div class="col-12">
+                                    <div class="input-group mt-2">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Nombre</span>
+                                        </div>
+                                        <input type="text" ng-model="categoriaNueva.nombre" class="form-control"
+                                            placeholder="Ingresa un nombre" aria-label="Username"
+                                            aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group-prepend mb-3">
+                                        <span style="font-size: 15; color: red;">{{errorNombre}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
+                            <button type="button" ng-click="registrar()" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="update" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modificar Categoría</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+
+                                <div class="col-12">
+                                    <div class="input-group mt-2">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Nombre</span>
+                                        </div>
+                                        <input type="text" ng-model="categoriaActualizada.nombre"
+                                            ng-value="categoriaOriginal.nombre" class="form-control"
+                                            placeholder="Ingresa un nombre" aria-label="Username"
+                                            aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group-prepend mb-3">
+                                        <span style="font-size: 15; color: red;">{{errorNombreUp}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
+                            <button type="button" ng-click="cambiar()" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="view" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Información de la Categoría</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="row mt-2 mb-2">
+                                <div class="col-6">
+                                    <div class="input-group mt-2">
+                                        <span style="font-weight: bold; font-size: 15;">Nombre: </span>
+                                     </div>
+                                     <div class="input-group mb-2">
+                                         <span style="font-size: 15;">{{categoriaVista.nombre}}</span>
+                                     </div>
+                                </div>
+                                <div class="col-6 ">
+                                    <div class="input-group mt-2">
+                                        <span style="font-weight: bold; font-size: 15;">Estado: </span>
+                                     </div>
+                                     <div class="input-group mb-2">
+                                            <span class="badge" ng-show="categoriaVista.estado == 1"
+                                                style="background-color: green">Activo</span>
             
+                                            <span class="badge" ng-show="categoriaVista.estado == 0"
+                                                style="background-color: red">Inactivo</span>
+                                </div>
+
+                            </div>
 
 
-            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" ng-click="cancelar()" class="btn btn-secondary"
+                                data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
 
 
@@ -144,31 +252,20 @@
             </script>
             <script src="./assets/js/Validacion.js"></script>
             <script>
-                const app = angular.module("index", [])
-                const controlador = app.controller("controlador1", ["$scope", "$http", ($scope, $http) => {
+                const app = angular.module("indexCategorias", [])
+                const controlador = app.controller("controlador2", ["$scope", "$http", ($scope, $http) => {
 
-                    $scope.producto = {
+                    $scope.categoriaNueva = {
                         nombre: "",
-                        marca: "",
-                        precio: "",
-                        cantidad: "",
-                        idCategoria: ""
                     }
 
-                    $scope.productoUpdate = {
-                        nombre: "",
-                        marca: "",
-                        precio: "",
-                        cantidad: "",
-                        idCategoria: ""
-                    }
 
                     $scope.consultar = () => {
                         $http({
                             method: 'GET',
-                            url: 'http://localhost:8080/Inventario/findAllProducto',
+                            url: 'http://localhost:8080/Inventario/findAllCategorias',
                         }).then(function successCallback(response) {
-                            $scope.productos = response.data.mensaje.datos;
+                            $scope.categorias = response.data.mensaje.datos;
 
                         }, function errorCallback(response) {
                             Swal.fire({
@@ -180,16 +277,14 @@
                         });
                     }
 
+
                     $scope.register = () => {
                         $('#register').modal('show');
                     }
 
-                    $scope.cancelar = () => {
-                        $('#register').modal('hide');
-                    }
-
                     $scope.registrar = () => {
-                        let success = validarCampos($scope.producto)
+                        console.log("Hola", $scope.categoriaNueva);
+                        let success = validarCampos($scope.categoriaNueva)
                         console.log(success ? "Con errores" : "Sin errores");
                         if (!success) {
                             Swal.fire({
@@ -201,14 +296,14 @@
                                 if (result.isConfirmed) {
                                     $http({
                                         method: 'POST',
-                                        url: 'http://localhost:8080/Inventario/registrarProducto',
-                                        data: "datos=" + JSON.stringify($scope.producto),
+                                        url: 'http://localhost:8080/Inventario/registrarCategoria',
+                                        data: "datos=" + JSON.stringify($scope.categoriaNueva),
                                         headers: {
                                             // 'Content-Type': 'application/json',
                                             'Content-Type': 'application/x-www-form-urlencoded'
                                         }
                                     }).then(function successCallback(response) {
-                                        console.log(response.data);
+                                        console.log(response.status);
                                         if (!response.data.mensaje.error) {
                                             Swal.fire({
                                                 icon: "success",
@@ -227,11 +322,6 @@
                                                     $scope.errorNombre = response.data.mensaje.errores.nombre
                                                 } else {
                                                     $scope.errorNombre = ""
-                                                }
-                                                if (response.data.mensaje.errores.categoria) {
-                                                    $scope.errorCategoria = response.data.mensaje.errores.categoria
-                                                } else {
-                                                    $scope.errorCategoria = ""
                                                 }
                                             }
                                         }
@@ -254,139 +344,49 @@
                         }
                     }
 
-                    $scope.consultarActivas = () => {
-                        $http({
-                            method: 'GET',
-                            url: 'http://localhost:8080/Inventario/findActivas',
-                        }).then(function successCallback(response) {
-                            $scope.categorias = response.data.mensaje.datos;
+                    const validarCampos = ({ nombre }) => {
+                        let vNombre = false;
 
-                        }, function errorCallback(response) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error en el servidor',
-                                text: 'Error en el servidor, intentalo de nuevo',
-                                allowOutsideClick: false
-                            })
-                        });
-                    }
-
-                    $scope.modificar = ({ id, nombre, marca, precio, cantidad, idCategoria }) => {
-                        $('#update').modal('show');
-                        $scope.productoRef = {
-                            id: id,
-                            nombre: nombre,
-                            marca: marca,
-                            precio: precio,
-                            cantidad: cantidad,
-                            idCategoria: idCategoria
-                        }
-
-                        $scope.productoUpdate = { ...$scope.productoRef }
-                    }
-
-                    const validarCampos = ({ nombre, marca, precio, cantidad, idCategoria }) => {
-                        let vNombre = false, vMarca = false, vPrecio = false, vCantidad = false, vCategoria = false;
-
-                        console.log("Categoria", idCategoria);
-                        console.log("Cantidad", cantidad);
-                        console.log("Validacion precio", ValidarPrecio(precio));
-                        if (ValidarNombre(nombre)) {
-                            $scope.errorNombre = ValidarNombre(nombre)
+                        if (ValidarNombreCategoria(nombre)) {
+                            $scope.errorNombre = ValidarNombreCategoria(nombre)
                             vNombre = true
                         } else {
                             $scope.errorNombre = ""
                             vNombre = false
                         }
 
-                        if (ValidarMarca(marca)) {
-                            $scope.errorMarca = ValidarMarca(marca)
-                            vMarca = true
-                        } else {
-                            $scope.errorMarca = ""
-                            vMarca = false
-                        }
 
-                        if (ValidarPrecio(precio)) {
-                            $scope.errorPrecio = ValidarPrecio(precio)
-                            vPrecio = true
-                        } else {
-                            $scope.errorPrecio = ""
-                            vPrecio = false
-                        }
-
-                        if (ValidarCantidad(cantidad)) {
-                            $scope.errorCantidad = ValidarCantidad(cantidad)
-                            vCantidad = true
-                        } else {
-                            $scope.errorCantidad = ""
-                            vCantidad = false
-                        }
-
-                        if (ValidarCategoria(idCategoria)) {
-                            $scope.errorCategoria = ValidarCategoria(idCategoria);
-                            vCategoria = true;
-                        } else {
-                            $scope.errorCategoria = ""
-                            vCategoria = false;
-                        }
-
-                        return vNombre || vCantidad || vMarca || vPrecio || vCategoria;
+                        return vNombre;
                     }
 
-                    const validarActualizacion = ({ nombre, marca, precio, cantidad, idCategoria }) => {
-                        let vNombre = false, vMarca = false, vPrecio = false, vCantidad = false, vCategoria = false;
+                    const validarActualizacion = ({ nombre }) => {
+                        let vNombre = false;
 
-                        if (ValidarNombre(nombre)) {
-                            $scope.errorNombreUp = ValidarNombre(nombre)
+                        if (ValidarNombreCategoria(nombre)) {
+                            $scope.errorNombreUp = ValidarNombreCategoria(nombre)
                             vNombre = true
                         } else {
                             $scope.errorNombreUp = ""
                             vNombre = false
                         }
 
-                        if (ValidarMarca(marca)) {
-                            $scope.errorMarcaUp = ValidarMarca(marca)
-                            vMarca = true
-                        } else {
-                            $scope.errorMarcaUp = ""
-                            vMarca = false
-                        }
 
-                        if (ValidarPrecio(precio)) {
-                            $scope.errorPrecioUp = ValidarPrecio(precio)
-                            vPrecio = true
-                        } else {
-                            $scope.errorPrecioUp = ""
-                            vPrecio = false
-                        }
-
-                        if (ValidarCantidad(cantidad)) {
-                            $scope.errorCantidadUp = ValidarCantidad(cantidad)
-                            vCantidad = true
-                        } else {
-                            $scope.errorCantidadUp = ""
-                            vCantidad = false
-                        }
-
-                        if (ValidarCategoria(idCategoria)) {
-                            $scope.errorCategoriaUp = ValidarCategoria(idCategoria);
-                            vCategoria = true;
-                        } else {
-                            $scope.errorCategoriaUp = ""
-                            vCategoria = false;
-                        }
-
-                        return vNombre || vCantidad || vMarca || vPrecio || vCategoria;
+                        return vNombre;
                     }
 
+                    $scope.modificar = (categoria) => {
+                        $('#update').modal('show');
+                        $scope.categoriaActualizada = { ...categoria }
+                        delete $scope.categoriaActualizada.$$hashKey;
+                        $scope.categoriaOriginal = { ...categoria }
+                    }
 
-                    $scope.guardar = () => {
-                        let success = validarActualizacion($scope.productoUpdate)
+                    $scope.cambiar = () => {
+                        console.log("Categoria", $scope.categoriaActualizada);
+                        let success = validarActualizacion($scope.categoriaActualizada);
                         if (!success) {
-                            let same = isSame($scope.productoUpdate, $scope.productoRef)
-                            if (!same) {
-                                console.log($scope.productoUpdate);
+                            const isSame = same($scope.categoriaActualizada, $scope.categoriaOriginal)
+                            if (!isSame) {
                                 Swal.fire({
                                     title: '¿Quieres guardar los cambios?',
                                     showCancelButton: true,
@@ -396,8 +396,8 @@
                                     if (result.isConfirmed) {
                                         $http({
                                             method: 'POST',
-                                            url: 'http://localhost:8080/Inventario/actualizarProducto',
-                                            data: "datos=" + JSON.stringify($scope.productoUpdate),
+                                            url: 'http://localhost:8080/Inventario/actualizarCategoria',
+                                            data: "datos=" + JSON.stringify($scope.categoriaActualizada),
                                             headers: {
                                                 // 'Content-Type': 'application/json',
                                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -407,7 +407,7 @@
                                             if (!response.data.mensaje.error) {
                                                 Swal.fire({
                                                     icon: "success",
-                                                    title: 'Actualizado!',
+                                                    title: 'Actualizada!',
                                                     confirmButtonText: 'Ok',
                                                     allowOutsideClick: false
                                                 }).then((result) => {
@@ -423,16 +423,11 @@
                                                     } else {
                                                         $scope.errorNombreUp = ""
                                                     }
-                                                    if (response.data.mensaje.errores.categoria) {
-                                                        $scope.errorCategoriaUp = response.data.mensaje.errores.categoria
-                                                    } else {
-                                                        $scope.errorCategoriaUp = ""
-                                                    }
                                                     if (response.data.mensaje.errores.id) {
                                                         Swal.fire({
                                                             icon: 'error',
-                                                            title: 'El producto no existe',
-                                                            text: 'El producto no existe intentalo de nuevo',
+                                                            title: 'La categoria o no existe',
+                                                            text: 'La categoria no existe intentalo de nuevo',
                                                             allowOutsideClick: false
                                                         }).then((result) => {
                                                             if (result.isConfirmed) {
@@ -452,11 +447,12 @@
                                         Swal.fire('Changes are not saved', '', 'info')
                                     }
                                 })
+
                             } else {
                                 Swal.fire({
                                     icon: 'question',
-                                    title: 'Realiza modificaciones',
-                                    text: 'Agrega la información correspondiente',
+                                    title: 'Sin datos a modificar',
+                                    text: 'Realiza las modificaciones correspondientes',
                                     allowOutsideClick: false
                                 })
                             }
@@ -465,20 +461,17 @@
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Campos con errores',
-                                text: 'Agrega la información correspondiente',
+                                text: 'Llena correctamente los campos correspondientes',
+                                allowOutsideClick: false
                             })
                         }
                     }
 
-                    const isSame = (valoresNuevos, valoresAnteriores) => {
-
-                        return ValidarSame(valoresNuevos.nombre, valoresAnteriores.nombre) && ValidarSame(valoresNuevos.marca, valoresAnteriores.marca)
-                            && ValidarSame(valoresNuevos.precio, valoresAnteriores.precio) && ValidarSame(valoresNuevos.cantidad, valoresAnteriores.cantidad)
-                            && ValidarSame(valoresNuevos.idCategoria.id, valoresAnteriores.idCategoria.id)
+                    const same = (categoriaNueva, categoriaAnterior) => {
+                        return ValidarSame(categoriaNueva.nombre, categoriaAnterior.nombre)
                     }
 
-                    $scope.eliminar = (producto, proceso) => {
-
+                    $scope.eliminar = (categoria, proceso) => {
                         Swal.fire({
                             title: proceso == 1 ? '¿Estas seguro de eliminar este registro?' : '¿Estas seguro de restablecer este registro?',
                             showCancelButton: true,
@@ -488,45 +481,45 @@
                             if (result.isConfirmed) {
                                 $http({
                                     method: 'POST',
-                                    url: 'http://localhost:8080/Inventario/eliminarProducto',
-                                    data: "datos=" + JSON.stringify(producto),
+                                    url: 'http://localhost:8080/Inventario/eliminarCategoria',
+                                    data: "datos=" + JSON.stringify(categoria),
                                     headers: {
                                         // 'Content-Type': 'application/json',
                                         'Content-Type': 'application/x-www-form-urlencoded'
                                     }
                                 }).then(function successCallback(response) {
                                     if (!response.data.mensaje.error) {
-                                            Swal.fire({
-                                                icon: "success",
-                                                title: proceso == 1 ? 'Eliminado!' : "Producto restablecido",
-                                                confirmButtonText: 'Ok',
-                                                allowOutsideClick: false
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    $scope.consultar();
-                                                }
-                                            })
-                                        } else {
-                                            if (response.data.mensaje.errores) {
-                                                if (response.data.mensaje.errores.id) {
-                                                    Swal.fire({
-                                                            icon: 'error',
-                                                            title: response.data.mensaje.errores.id,
-                                                            text: 'El producto no existe intentalo de nuevo',
-                                                            allowOutsideClick: false
-                                                        })
-                                                }
-                                                if (response.data.mensaje.errores.foranea) {
-                                                    Swal.fire({
-                                                            icon: 'error',
-                                                            title: response.data.mensaje.errores.foranea,
-                                                            text: 'Categoría inexistente, crea la categoría',
-                                                            allowOutsideClick: false
-                                                        })
-                                                }
+                                        Swal.fire({
+                                            icon: "success",
+                                            title: proceso == 1 ? 'Eliminado!' : "Categoría restablecida",
+                                            confirmButtonText: 'Ok',
+                                            allowOutsideClick: false
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                $scope.consultar();
+                                            }
+                                        })
+                                    } else {
+                                        if (response.data.mensaje.errores) {
+                                            if (response.data.mensaje.errores.id) {
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: response.data.mensaje.errores.id,
+                                                    text: 'La categoría no existe intentalo de nuevo',
+                                                    allowOutsideClick: false
+                                                })
+                                            }
+                                            if (response.data.mensaje.errores.foranea) {
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: response.data.mensaje.errores.foranea,
+                                                    text: 'Elimina o cambia los productos a otra categoría',
+                                                    allowOutsideClick: false
+                                                })
                                             }
                                         }
-                                 
+                                    }
+
                                 }, function errorCallback(response) {
                                     console.log(response);
 
@@ -538,10 +531,12 @@
                         })
                     }
 
-                    $scope.ver = (producto) =>{
+                    
+                    $scope.ver = (categoria) => {
                         $('#view').modal('show');
-                        $scope.productoVisto = {...producto, fecha: ObtenerFecha(producto.fecha)};
+                        $scope.categoriaVista = {...categoria}
                     }
+
                 }])
             </script>
 

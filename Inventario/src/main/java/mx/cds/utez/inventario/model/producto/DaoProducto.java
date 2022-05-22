@@ -120,12 +120,15 @@ public class DaoProducto {
             cstm.registerOutParameter("error_nombre", Types.INTEGER);
             cstm.registerOutParameter("error_categoria", Types.INTEGER);
             cstm.registerOutParameter("error_id", Types.INTEGER);
+
+
             cstm.execute();
 
             error = cstm.getInt("p_error");
             errorNombre = cstm.getInt("error_nombre");
             errorCategoria = cstm.getInt("error_categoria");
             errorId = cstm.getInt("error_id");
+
 
             if(error == 0){
                 mensaje.setMensaje("Se ha actualizado correctamente");
@@ -155,18 +158,20 @@ public class DaoProducto {
 
     public static Mensaje eliminar(BeanProducto producto){
         Mensaje mensaje = new Mensaje();
-        int error, errorId;
+        int error, errorId, errorForanea;
         Map<String, String> errores = new HashMap<>();
         try{
             con = ConnectionMySQL.getConnection();
-            cstm = con.prepareCall("CALL eliminar_producto(?,?,?)");
+            cstm = con.prepareCall("CALL eliminar_producto(?,?,?,?)");
              cstm.setInt("p_id", producto.getId());
             cstm.registerOutParameter("p_error", Types.INTEGER);
             cstm.registerOutParameter("error_id", Types.INTEGER);
+            cstm.registerOutParameter("error_foranea", Types.INTEGER);
             cstm.execute();
 
             error =cstm.getInt("p_error");
             errorId = cstm.getInt("error_id");
+            errorForanea = cstm.getInt("error_foranea");
 
             if(error == 0){
                 mensaje.setMensaje("Se ha hecho el cambio correctamente");
@@ -177,6 +182,7 @@ public class DaoProducto {
                 mensaje.setMensaje("No se pudo realizar el cambio");
                 mensaje.setDatos(null);
                 if (errorId == 1) errores.put("id", "El producto no existe");
+                if (errorForanea == 1) errores.put("foranea", "La categoria no existe");
                 mensaje.setErrores(errores);
                 mensaje.setError(true);
             }

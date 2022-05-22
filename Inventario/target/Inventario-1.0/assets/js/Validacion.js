@@ -61,6 +61,17 @@
         if(valorNuevo === valorAnterior) return true
         return false
     }
+    const ValidarNombreCategoria = (campo) =>  {
+        const REGEX_NOMBRE_VALIDO = new RegExp('^[a-zA-Z\\xC0-\\uFFFF][a-zA-Z\\xC0-\\uFFFF-]+( [a-zA-Z\\xC0-\\uFFFF-]+)*$')
+        const REGEX_CADENA_VACIA = new RegExp('^[\\s.\\-_]*$')
+        const MAXIMO_CARACTERES_NOMBRE = 20
+
+
+        if (REGEX_CADENA_VACIA.test(campo) || campo ==  undefined) return "Campo obligatorio"
+        if (!REGEX_NOMBRE_VALIDO.test(campo)) return "Ingresa un nombre válido"
+        if (campo.length > MAXIMO_CARACTERES_NOMBRE) return `Máximo ${MAXIMO_CARACTERES_NOMBRE} caracteres`
+        return null
+    }
 
     const ObtenerFecha = (tiempoJava)  =>{
         const tiempo = new Date(tiempoJava)

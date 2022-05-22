@@ -4,7 +4,7 @@
     "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
     <constant name="struts.devMode" value="true" />
-    <package name="struts2" extends="struts-default, json-default">
+    <package name="struts2" namespace="/" extends="struts-default, json-default">
         <interceptors>
             <interceptor-stack name="myStack">
                 <interceptor-ref name="json"/>
@@ -12,7 +12,10 @@
         </interceptors>
 
         <action name="categorias" >
-            <result>/plantillas/categorias.html</result>
+            <result>/categorias.jsp</result>
+        </action>
+        <action name="productos" >
+            <result>/index.jsp</result>
         </action>
         <action name="findAllProducto" class="mx.cds.utez.inventario.actions.ProductoAction" method="findAll" >
             <result name="success" type="json"/>
@@ -32,9 +35,18 @@
         <action name="eliminarProducto" class="mx.cds.utez.inventario.actions.ProductoAction" method="eliminarProducto" >
             <result name="success" type="json"/>
         </action>
-
-
-
+        <action name="findAllCategorias" class="mx.cds.utez.inventario.actions.CategoriaAction" method="findAllCategorias" >
+            <result name="success" type="json"/>
+        </action>
+        <action name="registrarCategoria" class="mx.cds.utez.inventario.actions.CategoriaAction" method="registrarCategoria" >
+            <result name="success" type="json"/>
+        </action>
+        <action name="actualizarCategoria" class="mx.cds.utez.inventario.actions.CategoriaAction" method="actualizarCategoria" >
+            <result name="success" type="json"/>
+        </action>
+        <action name="eliminarCategoria" class="mx.cds.utez.inventario.actions.CategoriaAction" method="eliminarCategoria" >
+            <result name="success" type="json"/>
+        </action>
     </package>
 </struts>
         
